@@ -1,0 +1,109 @@
+Get country by any IP
+@@
+
+$ip = '1.2.3.4';
+$country_code = ByREV_IP2clb( $ip ); 
+echo $country_code;
+
+[[~]]
+Get country code by visitors IP's
+@@
+
+$country_code = ByREV_IP2clb(); 
+echo $country_code;
+
+[[~]]
+Get more info about visitor IP
+@@
+$global IP2clb;
+
+$ip = IP2clb->getIP($ipInfo);
+$country_code =  ByREV_IP2clb($ip);
+
+echo $country_code;
+print_r($ipInfo);
+
+[[~]]
+Get country flag LINK by Country using [ https://countryflag.org/ ] free CDN flags service
+@@
+# size range: [100, 1024, 128, 1280, 1440, 150, 16, 1920, 200, 250, 2560, 32, 320, 3840, 48, 64, 640, 720]
+# format range: ['avif', 'webp', 'jxl', 'jpg', 'png']
+# args for "instance->flag_link_byCountry" ==> country_code, size, extension 
+
+$country_code = ByREV_IP2clb($ip); 
+$flag = $IP2clb->flag_link_byCountry($country_code, 128, 'jpg');
+echo $flag;
+
+[[~]]
+Get country flag URL by IP using [ https://countryflag.org/ ] free CDN flags service
+@@
+# args for "instance->flag_link_byIP" ==> ip, size, extension 
+
+$ip = '1.2.3.4';
+$country_code = ByREV_IP2clb($ip); 
+$flag = $IP2clb->flag_url_byIP('8.8.8.8', 150, 'avif');
+echo $flag;
+
+[[~]]
+Using free API Servers in front-end. "FrontEnd Support" must be enabled from [Config] menu
+@@
+<!-- 
+    START: ByREV_FREE_IP2C FrontEnd Support DEMO 
+    callback must be set set to "var ip2c_callback";
+        var ip2c_callback = 'ShowInfoBox'; 
+-->
+
+ <style>
+    .ip2c_demo {
+        display: none;
+        padding: 10px; 
+        text-align: center; 
+        margin: 10px; 
+        background: #ebe;
+        position: fixed;
+        width: 100%;
+        top: 30px;
+        z-index: 4294967294;
+        opacity: 0.8;
+    }
+ </style>
+
+ <!-- The HTML code used to display a message 1 -->
+ <div id="i2pc-country" style="" class="ip2c_demo">
+    Your Country: <span style"color: red">?</span> is not in NATO !
+ </div>
+
+  <!-- The HTML code used to display a message 2 -->
+  <div id="i2pc-country2" style="" class="ip2c_demo">
+    Your Country: <span style="color: blue">?</span> is a NATO member state.
+ </div>
+
+ <script>     
+    // we initialize a variable with the necessary data to use the API. It can also be used with any IP in the function call.
+     var ip2c_api = '<?php echo $GLOBALS['IP2clb']->get_FrontEnd_ApiServer('8.8.8.8'); ?>';   
+    
+    // callback function which will be called after the API call has finished and returned a positive result.
+    var ip2c_callback = 'ShowInfoBox';
+
+    // A list of countries that we will check, a different message will be displayed depending on the group in which the country will be found.
+    var target_country1 = ['AT','CY','IE','SE','MT','CN'];
+    var target_country2 = ['US','FR','DE', 'RO','BG','CA','NO'];
+
+    // displaying a pre-set message  
+    function ShowInfoBox() {                            
+        var index = target_country1.indexOf(country_code);
+        if (index !== -1) {
+            var e = document.getElementById("i2pc-country");
+            e.querySelector("span").innerHTML = country_code;  // in the 'country_code' variable, there is the two-letter country code, resulting from the API call
+            e.style.display = "block";         
+        }        
+
+        var index = target_country2.indexOf(country_code);
+        if (index !== -1) {
+            var e = document.getElementById("i2pc-country2");
+            e.querySelector("span").innerHTML = country_code;  // in the 'country_code' variable, there is the two-letter country code, resulting from the API call
+            e.style.display = "block";         
+        }       
+    }   
+ </script>
+<!-- END: ByREV_FREE_IP2C FrontEnd Support DEMO -->

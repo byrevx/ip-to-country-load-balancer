@@ -1,0 +1,219 @@
+.label-ckb {
+    width:200px; 
+    max-width: 50%;
+    display: inline-block; 
+}
+
+
+.form-table th {   
+    width: 160px;   
+    color: #44f;
+}
+
+.bw-srv {
+    background-size: 100%; 
+    width: 45%;    
+    max-width: 200px; 
+    display: inline-block; 
+    font-weight: bold; 
+    padding-left: 10px;
+    }
+
+@media screen and (max-width: 782px) {
+    .label-ckb {
+        width: 50%; 
+        max-width: 50%;
+    }
+
+    .form-table th {      
+        font-size: 1.1rem;
+        background-color: #afa;
+        padding: 2px 0px 5px 0px;
+        width: 100%;
+    }
+}    
+
+.ip2c-flag img {
+    box-shadow: 0px 0px 10px rgb(44, 129, 163);
+}
+
+.important {
+    color: #b71c1c; /* Textul va fi roșu închis */
+    background-color: #ffcdd2; /* Fundalul va fi roșu deschis */
+    border: 1px solid #b71c1c; /* Borderul va fi roșu închis */
+    padding: 10px; /* Spațiu în interiorul elementului */
+    margin: 10px 0; /* Spațiu în exteriorul elementului */
+    font-weight: bold; /* Textul va fi bold */
+  }
+.important::before {
+    content: "⚠️ ";
+  }  
+
+.button-toggle {
+    margin-top: 10px;
+    background-color: #0080b0; /* Verde-albastrui */
+    color: white; /* Text alb */
+    border: none; /* Fără bordură */
+    padding: 10px 20px; /* Spațiu în interiorul butonului */
+    text-align: center; /* Text centrat */
+    text-decoration: none; /* Fără subliniere */
+    display: inline-block;
+    font-size: 16px;
+    margin: 6px 2px;
+    cursor: pointer; /* Cursor de mână când se trece peste buton */
+    border-radius: 4px; /* Colțuri rotunjite */    
+}
+.button-toggle:hover {
+    background-color: #009494; /* Culoarea de fundal se schimbă când se trece peste buton */
+}
+
+/* privacy */
+
+#ip2c-privacy p {
+    font-size: 15px;
+}
+#ip2c-privacy h3 {
+    font-size: 18px;
+}
+
+#ip2c-privacy h4 {
+    font-size: 16px;
+}
+
+.ip2c-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+/* ------- tabs -------*/
+#tabs-ip2c {
+    width: 100%;
+}
+
+#tabs-ip2c ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-bottom: 4px solid #38c7da;
+    background-color: #f1f1f1;
+}
+
+#tabs-ip2c li {
+    float: left;
+    margin: 0px;
+}
+
+#tabs-ip2c li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 8px 16px ;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 1.2rem;      
+}
+
+#tabs-ip2c li a:hover {
+    background-color: #ddd;
+    border: none;
+    box-shadow: none;   
+}
+
+#tabs-ip2c li a:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+#tabs-ip2c .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+#tabs-ip2c .ui-tabs-active, #tabs-ip2c li a:focus {
+    background-color: #38c7da;
+}
+
+.tabs-i2pc {
+    margin-top: 14px;
+}
+
+#tabs-ip2c .form-table tr {
+    border-bottom: 1px solid #ccc;
+}
+
+#tabs-ip2c .form-table tbody tr th {
+    padding-left: 10px;
+}
+#tabs-ip2c .option-info {
+    color: #77f;
+}
+
+/* --------- */
+.code-text {
+    background: #afa !important; 
+    padding: 10px;
+    font-size: 16px;
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+}
+.code-output {
+    background: #ccf !important;  
+    padding: 10px;
+    font-size: 16px;
+}
+
+.hr-codex {
+    height: 5px;
+   
+    
+    background: linear-gradient(45deg, #FFD700 25%, #4B0082 25%, #000000 50%, #FFD700 50%, #4B0082 75%, #000000 75%);
+}    
+
+.use-case {
+    background: #1f1f1f; 
+    color: #CE9178; 
+    padding: 10px;
+    overflow: auto; 
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+/* --------------- */
+
+#tabs-ip2c table.check-result {
+    width: 100%;
+    max-width: 800px;
+    table-layout: fixed;
+    word-wrap: break-word;
+    /*max-width: 600px; */
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+#tabs-ip2c table.check-result, table.check-result th, table.check-result td {
+    border: 1px solid #ddd;
+}
+
+#tabs-ip2c table.check-result th, table.check-result td {
+    text-align: left;
+    padding: 16px;
+}
+
+#tabs-ip2c table.check-result th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#tabs-ip2c table.check-result tr:nth-child(even) {
+    background-color: #57ece5;
+}
+
+#tabs-ip2c table.check-result tr th {
+    text-align: center;
+}

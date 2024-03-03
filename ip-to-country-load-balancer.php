@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: 		IP to Country Load Balancer
- * Plugin URI: 			https://github.com/byrevx/byrev-free-ip2country
+ * Plugin Name: 		IP to Country Load Balancer (ByREV)
+ * Plugin URI: 			https://github.com/byrevx/ip-to-country-load-balancer
  * Description: 		WordPress plugin for country IP mapping using a free collection of servers that offer free API access. Is designed to balance the load among servers. The list of API servers used by the plugin only includes free servers that do not require prior registration or usage keys for API services. 
  * Version: 			1.0.0
  * Requires at least:	5.9.0
  * Requires PHP:		7.4
  * Author: 				Vicol Emilian Robert
- * Author URI: 			https://zauronia.com/
+ * Author URI: 			https://robertvicol.com/
  * Author Email: 		byrev@yahoo.com
  * Contributors:        byrev
  * License:             GPLv2 or later

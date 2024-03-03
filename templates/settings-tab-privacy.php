@@ -4,11 +4,11 @@
 
     <h4>## Introduction</h4>
 
-    <p>Our plugin ("we", "our", or "us") operates the API services provided by third parties. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our plugin and the choices you have associated with that data.</p>
+    <p>Our plugin ("we", "our", or "mine") operates the API services provided by third parties. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our plugin and the choices you have associated with that data.</p>
 
     <h4>## Use of External Services</h4>
 
-    <p>Our plugin offers API services provided by third parties. These external services are not under our control, and we cannot guarantee the quality, safety, or reliability of these services. We also cannot guarantee how these services use, store, or disclose your data.</p>
+    <p>This plugin offers API services provided by third parties. These external services are not under our control, and we cannot guarantee the quality, safety, or reliability of these services. We also cannot guarantee how these services use, store, or disclose your data.</p>
 
     <p>By using our plugin, you acknowledge and agree that we are not responsible for any loss or damage of any sort that you may suffer as a result of using these external services. We strongly recommend that you review the privacy policies of these third-party services before using them.</p>
 
@@ -41,6 +41,7 @@
 
     <h4>## Contact Us</h4>
 
-    <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at byrev@yahoo.com</p>
+    <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at byrev@yahoo.com .</p>
+    <p><i>Regards, Emilian Robert Vicol</i></p>
 </div>
 <?php

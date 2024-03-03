@@ -26,7 +26,7 @@
                     </label>
                     <span class="option-info" style="">Agree to the conditions <b>Privacy Policy</b> </span>
                     <hr />
-                    <span>By using our plugin, you hereby consent to our Privacy Policy and agree to its terms. <br />
+                    <span>By using this plugin, you hereby consent to <a href="#tabs-6">Privacy Policy</a> and agree to its terms. <br />
                         Read more in tab/page <a href="#tabs-6">Privacy Policy</a>.</span>
 
                     <?php if (!$agree) : ?>

@@ -17,7 +17,7 @@ Get more info about visitor IP
 @@
 $global IP2clb;
 
-$ip = IP2clb->getIP($ipInfo);
+$ip = $IP2clb->getIP($ipInfo);
 $country_code =  ByREV_IP2clb($ip);
 
 echo $country_code;
@@ -30,6 +30,8 @@ Get country flag LINK by Country using [ https://countryflag.org/ ] free CDN fla
 # format range: ['avif', 'webp', 'jxl', 'jpg', 'png']
 # args for "instance->flag_link_byCountry" ==> country_code, size, extension 
 
+$global IP2clb;
+
 $country_code = ByREV_IP2clb($ip); 
 $flag = $IP2clb->flag_link_byCountry($country_code, 128, 'jpg');
 echo $flag;
@@ -38,6 +40,8 @@ echo $flag;
 Get country flag URL by IP using [ https://countryflag.org/ ] free CDN flags service
 @@
 # args for "instance->flag_link_byIP" ==> ip, size, extension 
+
+$global IP2clb;
 
 $ip = '1.2.3.4';
 $country_code = ByREV_IP2clb($ip); 

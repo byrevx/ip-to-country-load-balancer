@@ -6,18 +6,18 @@
 <p id ="servers-health" class="">
 ...
 </p>
-<h3>Status: <span id="check-status"><b>Click to <u>"Chech Severs Health"</u> Button and wait until the test is finished!</b></span></h3>
+<h3>Status: <span id="check-status"><b>Click to <u>"Check Severs Health"</u> Button and wait until the test is finished!</b></span></h3>
 
 <hr class="hr-codex" />
 
 <script>
 jQuery('#servers-health-check').click(function() {
     jQuery('#servers-health').html('Please wait a few moments for the test to finish...');
-    //return;
 
     jQuery.ajax({
         url: '/wp-json/ip2country/servers-health/',
         method: 'GET',
+        data: { byrevapikey: '<?php echo ByREV_ajax_key(); ?>', },
         success: function(data) {
             try {
                 var jsonData = JSON.parse(data);
@@ -37,10 +37,10 @@ jQuery('#servers-health-check').click(function() {
                 table += '</table>';                
                 jQuery('#servers-health').html(table);
                 jQuery('#check-status').html('DONE!');
+                jQuery('#servers-health-check').hide();
 
-                //jQuery('#servers-health').html(JSON.stringify(table));
             } catch (error) {
-                console.log("Eroare: datele primite nu sunt un JSON valid.");
+                console.log("Error: The data received is not a valid JSON.");
                 jQuery('#servers-health').html("An error occurred: The data received is not a valid JSON.");
                 jQuery('#check-status').html('FAIL!');
             }

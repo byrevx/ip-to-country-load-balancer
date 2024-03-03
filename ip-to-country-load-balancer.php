@@ -67,13 +67,57 @@ function IP2clb_options_page() {
 add_action('admin_init', 'IP2clb_admin_init');
 function IP2clb_admin_init(){
     register_setting('IP2clb_options', 'IP2clb_options', 'IP2clb_validate_options');
+    
+    // Start SESSION only for managing plugin configurations (only for AMDIN interface). 
+    // Necessary if a verification of the functionality of the api servers is desired (Health Check).
+    if(session_status() !== PHP_SESSION_ACTIVE) session_start();    
 }
 
-// Validate user data for some/all of your settings
+
+/**
+ * Sanitizes the options submitted by the plugin's settings form.
+ *
+ * This function iterates over the submitted options and sanitizes each value
+ * based on its type:
+ *
+ * - Backend and frontend options (arrays): Sanitized with `wp_kses` to prevent malicious code.
+ * - Other checkbox fields: Sanitized with `sanitize_text_field`.
+ *
+ * @param array $input The raw options submitted from the settings form.
+ * @return array The sanitized options.
+ *
+ * @note This function assumes the `IP2clb_options` option name and the existence of
+ *        `backend`, `frontend`, and other checkbox fields.
+ */
 function IP2clb_validate_options($input) {
-    // Check all user data and sanitize as necessary before saving
-    return $input;
-}
+
+    // Initialize sanitized options array
+    $sanitized_options = array();
+
+    // allow fields:
+    $fields = array('backend', 'frontend', 'frontend-assets', 'rts', 'insert-demo');
+  
+    // Iterate over input keys and values
+    foreach ($input as $key => $value) {
+  
+      // Check if the key is in the backend or frontend field list
+      if (in_array($key, $fields )) {
+  
+        // Sanitize backend/frontend arrays with wp_kses
+        $allowed_tags = array('input' => array('type' => array(), 'value' => array()));
+        $sanitized_options[$key] = wp_kses($value, $allowed_tags);
+  
+      } else {
+  
+        // Sanitize simple checkbox with sanitize_text_field
+        $sanitized_options[$key] = sanitize_text_field($value);
+  
+      }
+    }
+  
+    // Return sanitized options
+    return $sanitized_options;
+  }
 
 // Add settings link on plugin page
 function IP2clb_settings_link($links) { 

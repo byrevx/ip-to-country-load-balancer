@@ -1,7 +1,7 @@
-=== IP to Country Load Balancer (IP2CLB) ===
+=== IP to Country Load Balancer (ByREV) ===
 Contributors: byrev
 Tags: geoloaction,GeoIP,country,ip-address,flag
-Donate link: https://www.paypal.com/donate/?hosted_button_id=FWF6TBRWZDUXA
+Donate link: https://robertvicol.com/donate.php
 Requires at least: 5.9.0
 Tested up to: 6.4.3
 Requires PHP: 7.4

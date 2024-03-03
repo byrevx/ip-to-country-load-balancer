@@ -68,9 +68,12 @@ add_action('admin_init', 'IP2clb_admin_init');
 function IP2clb_admin_init(){
     register_setting('IP2clb_options', 'IP2clb_options', 'IP2clb_validate_options');
     
+    //wp_enqueue_script('your-script', 'path_to_your_script', array('wp-api'));
+
     // Start SESSION only for managing plugin configurations (only for AMDIN interface). 
     // Necessary if a verification of the functionality of the api servers is desired (Health Check).
-    if(session_status() !== PHP_SESSION_ACTIVE) session_start();    
+  
+    //if(session_status() !== PHP_SESSION_ACTIVE) session_start();    
 }
 
 

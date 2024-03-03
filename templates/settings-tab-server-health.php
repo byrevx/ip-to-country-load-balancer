@@ -9,20 +9,19 @@
 <h3>Status: <span id="check-status"><b>Click to <u>"Check Severs Health"</u> Button and wait until the test is finished!</b></span></h3>
 
 <hr class="hr-codex" />
-
 <script>
 jQuery('#servers-health-check').click(function() {
     jQuery('#servers-health').html('Please wait a few moments for the test to finish...');
 
     jQuery.ajax({
-        url: '/wp-json/ip2country/servers-health/',
+        url: ip_to_country_ajax.ajax_url + '?action=ip_to_country_servers_health', // Include the action
         method: 'GET',
-        data: { byrevapikey: '<?php echo ByREV_ajax_key(); ?>', },
+        data: {
+            byrevapikey: ip_to_country_ajax.nonce, // Use the provided nonce
+        },
         success: function(data) {
             try {
-                var jsonData = JSON.parse(data);
-                console.log(jsonData);
-
+                var jsonData = data['data'];
                 jsonData.sort((a, b) => a.time - b.time);
 
                 var table = '<table class="check-result"><tr><th>Server Name</th><th>Response (ms)</th><th>Random IP</th><th>Country Code</th><th>Flag</th></tr>';

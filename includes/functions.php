@@ -222,48 +222,13 @@ function ByREV_IP2clb_CheckServerHealth() {
         $i++;
     }
     
+    return $result;
+
     return json_encode($result);
 }
 
-/**
- * Generates a unique API key used for CheckServerHealth in the Admin Page Test.
- * 
- * @param bool $reset (optional) Set to `true` to reset the key, defaults to `false`.
- * @param int $expire (optional) The expiration time for the key in seconds, defaults to 3600 (1 hour).
- * 
- * @return string|null The generated API key on success, `null` if the key is expired or invalid.
- * 
- * @throws Exception If session couldn't be started.
- * 
- * @uses session_status() Checks the session status.
- * @uses @session_start() Starts a new session, suppressing errors.
- * @uses openssl_random_pseudo_bytes() Generates a cryptographically secure random string.
- * @uses hash() Calculates the SHA-256 hash of the generated string.
- * @uses base64_encode() Encodes the key as a base64 string for storage in the session.
- * @uses base64_decode() Decodes the key from base64 when retrieved.
- * 
- * @note This function stores the key and its expiration time in the session.
- * @note The key is used for Check Server Health in the Admin Page Test one time only.
- * @note Calling the function with `$reset = true` will invalidate the current key; which happens automatically for Check Server Health
- */
-function ByREV_ajax_key($reset=false, $expire=3600)  
-{ 
-    if(session_status() !== PHP_SESSION_ACTIVE) @session_start();
-
-    $expired = isset($_SESSION['byrev-api-key-expired']) ? $_SESSION['byrev-api-key-expired'] < time() : false;
-
-    if (!isset($_SESSION['byrev-api-key']) || $expired) {
-        $key = hash('sha256', openssl_random_pseudo_bytes(32));
-        $_SESSION['byrev-api-key'] = $key ;
-        $_SESSION['byrev-api-key-expired'] = time() + $expire;
-    }
-
-    $key = $_SESSION['byrev-api-key'];
-
-    if ($reset)
-        unset($_SESSION['byrev-api-key']);
-
-    return $key;  
+function ByREV_is_admin() {
+    return ( current_user_can('editor') || current_user_can('administrator') );
 }
 
 /**
@@ -321,7 +286,7 @@ function ByREV_IP2clb_FrontendSupport() {
  * This code snippet performs two main actions:
  *
  * 1. **Registers a REST endpoint:**
- *    - Endpoint path: `/ip2country/servers-health/`
+ *    - Endpoint path: `/ip_to_country/servers-health/`
  *    - Method: GET
  *    - Callback function: `ByREV_IP2clb_CheckServerHealth` (assumed to perform server health checks)
  *    - Permission callback:
@@ -341,26 +306,48 @@ function ByREV_IP2clb_FrontendSupport() {
  * @note This API endpoint is intended for internal plugin usage and shouldn't be exposed publicly.
  * @note The API key usage is limited to one server health check request.
  */
+
+ function create_ip_to_country_nonce() {
+    $action = 'byrev-ip2c-nonce'; // Using a unique action name
+    return wp_create_nonce($action);
+}
+
+/**
+ * Adds functionality to verify nonces and handle the "ip_to_country_servers_health" action, 
+ * used specifically in the configuration area to verify server health.
+ *
+ * This function is hooked to the `plugins_loaded` action.
+ *
+ * @since 1.0.0
+ */
 add_action('plugins_loaded', function () {
 
-    // Registering a REST endpoint for Servers Health checks. 
-    // It represents the support for the "Servers Health" page in the plugin.
-    add_action('rest_api_init', function () {
-        register_rest_route('ip2country/', 'servers-health/', array(
-        'methods' => 'GET',                     
-        'callback' => 'ByREV_IP2clb_CheckServerHealth',       // CheckServerHealth for Admin Page Test; Only as Internal API, 
-        'permission_callback' => function () {            
-            // This call is only accessible from the plugin admin page only, no code is implemented for public access.
-            // NOTE: The API key is used only once, after which it will be deleted!
-            $key = (!empty($_REQUEST['byrevapikey'])) ? $_REQUEST['byrevapikey'] : null;
-            return (!empty($key) && ( $key === ByREV_ajax_key(true)) );                                
-        },
-      ));
-    });
+    // Enqueue the generated nonce with the my script
+    wp_enqueue_script('byrev-ip2c', plugins_url('assets/byrev-ip2c.js', __FILE__), array('jquery'), '1.0.0', true); // Load js in the footer
+    wp_localize_script('byrev-ip2c', 'ip_to_country_ajax', array(
+        'nonce' => create_ip_to_country_nonce(),
+        'ajax_url' => admin_url('admin-ajax.php'), // Proper REST API endpoint
+    ));
+
+    // Function to verify the nonce and handle the request
+    add_action('wp_ajax_ip_to_country_servers_health', function () {       // this action is used only in config place to verify servers
+        if (wp_verify_nonce($_GET['byrevapikey'], 'byrev-ip2c-nonce')) {
+            // logic to handle the request and return data
+            $data = ByREV_IP2clb_CheckServerHealth();
+            $response = array($data);
+            wp_send_json_success($data);
+        } else {
+            wp_send_json_error(array(
+                'code' => 'rest_forbidden',
+                'message' => 'Invalid nonce or missing permissions',
+            ), 401);
+        }
+        wp_die(); // Ensure script termination!
+    });    
 
     ByREV_IP2clb_FrontendSupport();
 });
-  
+
 /**
  * Runs demo code for IP to Country Load Balancer frontend functionality (if enabled and available).
  *
